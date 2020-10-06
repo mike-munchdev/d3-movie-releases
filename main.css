@@ -27,15 +27,15 @@ select {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 800px;
+  width: 1000px;
 }
 .movie-table {
-  width: 800px;
+  width: 1000px;
 }
 #movieData {
   display: flex;
   flex-direction: column;
-  width: 800px;
+  width: 1000px;
   align-items: center;
   justify-content: center;
 }
@@ -44,6 +44,11 @@ select {
 }
 .month-container {
   margin-top: 15px;
+}
+.year-label {
+  margin-right: 10px;
+  vertical-align: text-bottom;
+  font-size: x-large;
 }
 .lds-facebook {
   display: inline-block;
