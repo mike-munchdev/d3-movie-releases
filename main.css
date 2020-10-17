@@ -19,9 +19,20 @@ select {
   flex-direction: column;
   margin-top: 10px;
 }
-#year {
+#options {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+#genre {
   align-items: 'center';
   justify-content: 'center';
+}
+#year {
+  flex: 1;
+  align-items: 'center';
+  justify-content: 'center';
+  margin-right: 50px;
 }
 #months {
   display: flex;
@@ -45,7 +56,13 @@ select {
 .month-container {
   margin-top: 15px;
 }
-.year-label {
+.month-header {
+  display: flex;
+}
+.header-container {
+  flex: 1;
+}
+.select-label {
   margin-right: 10px;
   vertical-align: text-bottom;
   font-size: x-large;
