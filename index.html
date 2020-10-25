@@ -4,24 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New Movie Releases</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" href="main.css" />
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"
-      integrity="sha512-Izh34nqeeR7/nwthfeE0SI3c8uhFSnqxV0sI9TvTcXiFJkMd6fB644O64BRq2P/LA/+7eRvCw4GmLsXksyTHBg=="
-      crossorigin="anonymous"
-    ></script>
   </head>
   <body>
-    <div class="container">
-      <h1 id="top">TMDB New Releases</h1>
-      <div id="options">
-        <div id="year"></div>
-        <div id="genre"></div>
-      </div>
-      <div id="months"></div>
-      <div id="movieData"></div>
-    </div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="api.js"></script>
     <script src="lists.js"></script>
     <script src="main.js"></script>
   </body>

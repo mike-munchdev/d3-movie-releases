@@ -1,15 +1,15 @@
 * {
   margin: 0;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium: Arial Narrow', Arial, sans-serif;
 }
 
 .title {
-  font-size: 5rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
 select {
-  font-size: x-large;
+  font-size: 1rem;
 }
 
 .container {
@@ -19,28 +19,26 @@ select {
   flex-direction: column;
   margin-top: 10px;
 }
+
 #options {
   display: flex;
   flex: 1;
   flex-direction: row;
 }
 #genre {
-  align-items: 'center';
-  justify-content: 'center';
+  align-items: center;
+  justify-content: center;
 }
 #year {
   flex: 1;
-  align-items: 'center';
-  justify-content: 'center';
+  align-items: center;
+  justify-content: center;
   margin-right: 50px;
 }
 #months {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 1000px;
-}
-.movie-table {
   width: 1000px;
 }
 #movieData {
@@ -50,11 +48,15 @@ select {
   align-items: center;
   justify-content: center;
 }
+
+.movie-table {
+  width: 1000px;
+}
 .month-name {
-  font-size: 24px;
+  font-size: 1em;
 }
 .month-container {
-  margin-top: 15px;
+  margin-top: 1em;
 }
 .month-header {
   display: flex;
@@ -63,10 +65,23 @@ select {
   flex: 1;
 }
 .select-label {
-  margin-right: 10px;
-  vertical-align: text-bottom;
-  font-size: x-large;
+  margin-right: 5px;
+  font-size: 1rem;
 }
+.movie-table-head {
+  border: 1px black solid;
+  padding: 5px;
+  background-color: lightgray;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.movie-table-body {
+  border: 1px black solid;
+  padding: 5px;
+  font-size: 0.75rem;
+}
+
+/* https://loading.io/css/ */
 .lds-facebook {
   display: inline-block;
   position: relative;

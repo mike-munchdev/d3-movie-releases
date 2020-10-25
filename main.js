@@ -1,5 +1,3 @@
-const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
-
 (async ($d3, $genres, $months, $headers) => {
   const rangeOfYears = (start, end) =>
     Array(end - start + 1)
@@ -20,20 +18,28 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
     return loadingAnimation;
   };
 
-  // create loading animation
-
   const minYear = 1950;
   const maxYear = new Date().getFullYear();
 
-  // create year select list
-  $d3
-    .select('#year')
-    .append('span')
-    .attr('class', 'select-label')
-    .text('Select Year:');
+  const mainContainer = $d3
+    .select('body')
+    .append('div')
+    .attr('id', 'mainContainer')
+    .attr('class', 'container');
 
-  const yearSelect = $d3
-    .select('#year')
+  mainContainer.append('h1').attr('id', 'top').text('TMDB New Releases');
+
+  const optionsDiv = mainContainer.append('div').attr('id', 'options');
+  const yearDiv = optionsDiv.append('div').attr('id', 'year');
+  const genreDiv = optionsDiv.append('div').attr('id', 'genre');
+
+  const monthsDiv = mainContainer.append('div').attr('id', 'months');
+  const movieDataDiv = mainContainer.append('div').attr('id', 'movieData');
+
+  // create year select list
+  yearDiv.append('label').attr('class', 'select-label').text('Select Year:');
+
+  const yearSelect = yearDiv
     .append('select')
     .attr('id', 'yearSelect')
     .on('change', function (event) {
@@ -55,14 +61,9 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
     });
 
   // create genre select list
-  $d3
-    .select('#genre')
-    .append('span')
-    .attr('class', 'select-label')
-    .text('Select Genre:');
+  genreDiv.append('span').attr('class', 'select-label').text('Select Genre:');
 
-  const genreSelect = $d3
-    .select('#genre')
+  const genreSelect = genreDiv
     .append('select')
     .attr('id', 'genreSelect')
     .on('change', function (event) {
@@ -85,12 +86,11 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
 
   const getMovieDataForYear = async (year, genre) => {
     // clear
-    $d3.select('#months').html('');
-    $d3.select('#movieData').html('');
+    monthsDiv.html('');
+    movieDataDiv.html('');
 
-    const monthsElement = $d3.select('#months');
-
-    monthsElement
+    // create month links
+    monthsDiv
       .selectAll('div')
       .data($months)
       .enter()
@@ -103,8 +103,9 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
         return d;
       });
 
+    // get data for each month
     await asyncForEach($months, async (month, index) => {
-      const movieDataElement = $d3.select('#movieData').append('div');
+      const movieDataElement = movieDataDiv.append('div');
       try {
         movieDataElement.append(() => createLoadingAnimation().node());
 
@@ -121,8 +122,7 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
         const movieData = await $d3.json(url);
 
         movieDataElement.selectAll('.lds-facebook').remove();
-        const monthDiv = $d3
-          .select('#movieData')
+        const monthDiv = movieDataDiv
           .append('div')
           .attr('id', `${month}-${year}`)
           .attr('class', 'month-container');
@@ -130,18 +130,18 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
         const monthDivHeader = monthDiv
           .append('div')
           .attr('class', 'month-header');
+
         monthDivHeader
           .append('div')
           .attr('class', 'header-container')
-          .append('h2')
+          .append('h4')
           .text(`${month} ${year}`);
 
         monthDivHeader.append('a').attr('href', '#top').text('top');
 
         const table = monthDiv
           .append('table')
-          .style('border-collapse', 'collapse')
-          .style('border', '2px black solid')
+          .attr('class', 'table')
           .attr('class', 'movie-table');
 
         const filteredMovieData = movieData.results.map((d) => {
@@ -162,11 +162,7 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
           .text(function (d) {
             return d === 'genre_ids' ? 'genres' : d.replace('_', ' ');
           })
-          .style('border', '1px black solid')
-          .style('padding', '5px')
-          .style('background-color', 'lightgray')
-          .style('font-weight', 'bold')
-          .style('text-transform', 'uppercase');
+          .attr('class', 'movie-table-head');
 
         // add table data
         table
@@ -181,8 +177,7 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
           })
           .enter()
           .append('td')
-          .style('border', '1px black solid')
-          .style('padding', '5px')
+          .attr('class', 'movie-table-body')
           .on('mouseover', function () {
             $d3.select(this).style('background-color', 'powderblue');
           })
@@ -193,13 +188,11 @@ const API_KEY = '17fcd7577118002fbd3187179fc8ad61';
             return index === $headers.length - 1
               ? d.map((i) => $genres.find((g) => g.id === i).name).join(', ')
               : d;
-          })
-          .style('font-size', '12px');
+          });
       } catch (error) {
         // display error
         movieDataElement.selectAll('.lds-facebook').remove();
-        $d3
-          .select('#movieData')
+        movieDataDiv
           .append('h2')
           .text(`${month}-${year} - Error Retrieving Data`);
       }
